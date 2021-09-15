@@ -58,7 +58,10 @@ class KeyboardManagerWidgetState extends State<KeyboardManagerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var bottom = MediaQuery.of(context).viewInsets.bottom;
+    final viewInsets = EdgeInsets.fromWindowPadding(
+        WidgetsBinding.instance!.window.viewInsets,
+        WidgetsBinding.instance!.window.devicePixelRatio);
+    var bottom = viewInsets.bottom;
     var keyboardOpen = bottom > 0;
     var oldKeyboardOpen = _keyboardOpen;
     _keyboardOpen = keyboardOpen;

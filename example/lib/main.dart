@@ -14,7 +14,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: const Text('Interactive Keyboard'),
         ),
@@ -29,6 +29,8 @@ class _MyAppState extends State<MyApp> {
                 child: KeyboardManagerWidget(
                   onKeyboardClose: (){
                     print("keyboardClose");
+                    // If `Scaffold.resizeToAvoidBottomInset` is true:
+                    setState(() {});
                   },
                   onKeyboardOpen: () {
                     print("keyboardOpen");
