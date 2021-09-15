@@ -9,7 +9,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,32 +18,33 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Interactive Keyboard'),
         ),
         body: Container(
-          margin: EdgeInsets.only(top:100),
+          margin: EdgeInsets.only(top: 100),
           child: Column(
             children: <Widget>[
               TextField(
                 keyboardAppearance: Brightness.dark,
               ),
               Expanded(
-                child: KeyboardManagerWidget(
-                  onKeyboardClose: (){
-                    print("keyboardClose");
-                    // If `Scaffold.resizeToAvoidBottomInset` is true:
-                    setState(() {});
+                  child: KeyboardManagerWidget(
+                onKeyboardClose: () {
+                  print("keyboardClose");
+                  // If `Scaffold.resizeToAvoidBottomInset` is true:
+                  WidgetsBinding.instance?.addPostFrameCallback((_) {
+                    if (mounted) setState(() {});
+                  });
+                },
+                onKeyboardOpen: () {
+                  print("keyboardOpen");
+                },
+                child: ListView.builder(
+                  itemCount: 100,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text("element $index"),
+                    );
                   },
-                  onKeyboardOpen: () {
-                    print("keyboardOpen");
-                  },
-                  child: ListView.builder(
-                    itemCount: 100,
-                    itemBuilder: (context,index){
-                      return ListTile(
-                        title: Text("element $index"),
-                      );
-                    },
-                  ),
-                )
-              )
+                ),
+              ))
             ],
           ),
         ),
